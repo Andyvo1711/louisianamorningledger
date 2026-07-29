@@ -23,7 +23,7 @@ export default function SiteHeader() {
 
         <div className="hidden md:flex md:flex-1 md:items-center md:justify-end md:gap-6">
           <NavLinks navItems={navItems} />
-          <SearchForm className="w-64" />
+          <SearchForm className="w-72" />
         </div>
 
         <MobileNavigation navItems={navItems} />
