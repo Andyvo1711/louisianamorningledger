@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-morning-sky: #d9f1ff;
+  --color-clear-blue: #2287c9;
+  --color-sunrise-yellow: #ffd75a;
+  --color-warm-coral: #f47c65;
+  --color-cypress-green: #3f7a63;
+  --color-magnolia-cream: #fff9eb;
+  --color-crisp-white: #ffffff;
+  --color-mardi-gras-purple: #6b4fa1;
+  --color-fresh-mint: #ddf2e7;
+  --color-warm-charcoal: #263238;
+  --color-muted-slate: #66737b;
+  --color-soft-border: #d8e1e5;
+
+  --background: var(--color-crisp-white);
+  --foreground: var(--color-warm-charcoal);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-newsreader);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.prose-article {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+.prose-article h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-warm-charcoal);
+}
+
+.prose-article h3 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-warm-charcoal);
+}
+
+.prose-article p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.prose-article strong {
+  font-weight: 700;
+}
+
+.prose-article em {
+  font-style: italic;
+}
+
+.prose-article ul {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.prose-article ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  list-style-type: decimal;
+}
+
+.prose-article li {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+
+.prose-article blockquote {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--color-clear-blue);
+  padding-left: 1rem;
+  font-style: italic;
+  color: var(--color-muted-slate);
+}
+
+.prose-article a {
+  color: var(--color-clear-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
