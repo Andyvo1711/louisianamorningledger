@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "articles");
+const PUBLIC_DIR = path.join(process.cwd(), "public");
 const VALID_CATEGORIES = new Set([
   "education",
   "healthcare",
@@ -44,6 +45,11 @@ function isValidImageUrl(url: string): boolean {
   } catch {
     return false;
   }
+}
+
+// Local images live in /public/images and are referenced as "/images/<file>".
+function isLocalImagePath(url: string): boolean {
+  return /^\/images\/[A-Za-z0-9._-]+\.(png|jpe?g|webp|avif|gif)$/i.test(url);
 }
 
 function main() {
@@ -124,14 +130,22 @@ function main() {
       }
     }
 
-    if (typeof coverImage !== "string" || !isValidImageUrl(coverImage)) {
-      fail(filePath, `"coverImage" must be an https URL from images.unsplash.com or images.pexels.com (got ${JSON.stringify(coverImage)})`);
-    } else {
+    if (typeof coverImage !== "string") {
+      fail(filePath, `"coverImage" must be a string (got ${JSON.stringify(coverImage)})`);
+    } else if (isLocalImagePath(coverImage)) {
+      // Local image: must exist in /public. Reuse across articles is allowed.
+      if (!fs.existsSync(path.join(PUBLIC_DIR, coverImage))) {
+        fail(filePath, `local coverImage "${coverImage}" not found in the public folder`);
+      }
+    } else if (isValidImageUrl(coverImage)) {
+      // Remote Unsplash/Pexels image: must be unique across articles.
       if (seenImages.has(coverImage)) {
         fail(filePath, `duplicate coverImage URL also used by ${path.relative(process.cwd(), seenImages.get(coverImage)!)}`);
       } else {
         seenImages.set(coverImage, filePath);
       }
+    } else {
+      fail(filePath, `"coverImage" must be an Unsplash/Pexels https URL or a local "/images/..." path (got ${JSON.stringify(coverImage)})`);
     }
 
     if (!content || !content.trim()) {
