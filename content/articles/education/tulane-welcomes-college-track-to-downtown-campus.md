@@ -5,7 +5,7 @@ excerpt: "Tulane University is expanding its partnership with the national colle
 category: "education"
 date: "2026-08-13"
 coverImage: "/images/tulane-welcomes-college-track-to-downtown-campus.jpg"
-featured: false
+featured: true
 imageCredit: "Photo: Jacinta Quesada / Wikimedia Commons, Public domain"
 ---
 
